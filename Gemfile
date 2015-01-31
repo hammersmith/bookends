@@ -39,3 +39,6 @@ gem 'spring',        group: :development
 gem 'devise', '~> 3.4'
 gem 'handlebars_assets', '~> 0.18'
 
+group :test do
+  gem 'rake'
+end
