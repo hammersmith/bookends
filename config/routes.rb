@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   end
   root to: 'catalogs#home'
   
-  resources :media_items
+  resources :media_items do
+    collection do
+      get :check_inventory
+    end
+  end
 
 end

@@ -31,8 +31,22 @@
         });
         
         $searchResults.html(results);
+        var gbIds = response.items.map(function(item) {
+          return item.id;
+        });
+        
+        $.get('<%= check_inventory_media_items_path %>', { gbIds: gbIds }, function(response) {
+          response.forEach(function(item) {
+            $('#gb_' + item.remoteId).find('.js-add-item-form').replaceWith(item.form);
+          });
+          $('.js-add-item-form').show();
+        });
       });
       
+    });
+    
+    $(document).on('ajax:success', '.js-add-item-form', function(event, data) {
+      $('#gb_' + data.remoteId).find('.js-add-item-form').replaceWith(data.form);
     });
   </script>
 <% end %>
