@@ -1,0 +1,28 @@
+<section>
+  <h1>Search for a Book</h1>
+  <%= form_tag 'https://www.googleapis.com/books/v1/volumes', method: :get do %>
+    <%= hidden_field_tag :key, 'AIzaSyCXUQDJUs1QWyf94HfZjacdbt7Q6rQr-Qc&' %>
+    <%= text_field_tag :isbn %>
+    <button id="google_search">Search</button>
+  <% end %>
+  
+  <%= link_to 'Back to Catalog', root_path %>
+</section>
+
+<%= content_for :javascript do %>
+  <script>
+    $('#google_search').on('click', function(e) {
+      e.preventDefault();
+      
+      query = $('#isbn').val();
+      
+      data = {
+        q: query
+      }
+      
+      $.getJSON($('form').attr('action'), data, function(response) {
+        console.log(response);
+      });
+    });
+  </script>
+<% end %>
