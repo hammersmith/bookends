@@ -1,0 +1,18 @@
+{{#items}}
+  <div>
+    {{#with volumeInfo}}
+      <img src="{{imageLinks.thumbnail}}" alt="{{title}}-cover">
+      <p>{{title}}</p>
+      <p>
+        {{join authors ', '}}
+      </p>
+      <form action="<%= Rails.application.routes.url_helpers.media_items_path %>" method="post" data-remote="true">
+        <input type="hidden" name="title" value="{{title}}">
+        <input type="hidden" name="author" value="{{join authors ', '}}">
+        <input type="hidden" name="format" value="{{printType}}">
+        <input type="hidden" name="remote_id" value="{{../id}}">
+        <button>Add To Inventory</button>
+      </form>
+    {{/with}}
+  </div>
+{{/items}}

@@ -6,6 +6,9 @@
     <button id="google_search">Search</button>
   <% end %>
   
+  <div id="search_results">
+  </div>
+  
   <%= link_to 'Back to Catalog', root_path %>
 </section>
 
@@ -14,15 +17,22 @@
     $('#google_search').on('click', function(e) {
       e.preventDefault();
       
-      query = $('#isbn').val();
+      var $searchResults = $('#search_results');
+      $searchResults.html('spinner');
       
-      data = {
+      var query = $('#isbn').val();
+      var data = {
         q: query
       }
       
       $.getJSON($('form').attr('action'), data, function(response) {
-        console.log(response);
+        var results = HandlebarsTemplates.search_results({
+          items: response.items
+        });
+        
+        $searchResults.html(results);
       });
+      
     });
   </script>
 <% end %>
