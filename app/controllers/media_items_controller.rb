@@ -1,6 +1,6 @@
 class MediaItemsController < ApplicationController
   
-  before_filter :find_media_item, only: [:show]
+  before_filter :find_media_item, only: [:show, :update, :destroy]
 
   def create
     media_item = MediaItem.new(media_item_params)
@@ -17,12 +17,23 @@ class MediaItemsController < ApplicationController
   def show
   end
   
+  def update
+    @media_item.quantity = params[:media_item][:quantity]
+    if @media_item.save
+      render nothing: true
+    else
+      render nothing: true, status: :not_acceptable
+    end
+  end
+  
+  def destroy
+    @media_item.destroy
+    render json: { remoteId: @media_item.remote_id }
+  end
+  
   def check_inventory
-    inventory = MediaItem.where(remote_id: params[:gbIds]).select(:id, :quantity, :remote_id).map do |item|
-      {
-        remoteId: item.remote_id,
-        form: render_to_string(partial: 'update_form', locals: { media_item: item })
-      }
+    inventory = MediaItem.where(remote_id: params[:gbIds]).select(:id, :quantity, :remote_id).each_with_object({}) do |item, hash|
+      hash[item.remote_id] = render_to_string(partial: 'update_form', locals: { media_item: item })
     end
     
     render json: inventory

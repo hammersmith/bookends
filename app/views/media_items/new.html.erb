@@ -1,7 +1,7 @@
 <section>
   <h1>Search for a Book</h1>
   <%= form_tag 'https://www.googleapis.com/books/v1/volumes', method: :get do %>
-    <%= hidden_field_tag :key, 'AIzaSyCXUQDJUs1QWyf94HfZjacdbt7Q6rQr-Qc&' %>
+    <%= hidden_field_tag :key, 'AIzaSyCXUQDJUs1QWyf94HfZjacdbt7Q6rQr-Qc' %>
     <%= text_field_tag :isbn %>
     <button id="google_search">Search</button>
   <% end %>
@@ -36,17 +36,29 @@
         });
         
         $.get('<%= check_inventory_media_items_path %>', { gbIds: gbIds }, function(response) {
-          response.forEach(function(item) {
-            $('#gb_' + item.remoteId).find('.js-add-item-form').replaceWith(item.form);
+          gbIds.forEach(function(googleId) {
+            var $resultElement = $('#gb_' + googleId);
+            if (response[googleId]) {
+              $resultElement.append(response[googleId]);
+            } else {
+              $resultElement.find('.js-add-item-form').show();
+            }
           });
-          $('.js-add-item-form').show();
         });
       });
       
     });
     
     $(document).on('ajax:success', '.js-add-item-form', function(event, data) {
-      $('#gb_' + data.remoteId).find('.js-add-item-form').replaceWith(data.form);
+      var $resultElement = $('#gb_' + data.remoteId);
+      $resultElement.append(data.form);
+      $resultElement.find('.js-add-item-form').hide();
+    });
+    
+    $(document).on('ajax:success', '.js-remove-item', function(event, data) {
+      var $resultElement = $('#gb_' + data.remoteId);
+      $resultElement.find('.js-update-item-form').remove();
+      $resultElement.find('.js-add-item-form').show();
     });
   </script>
 <% end %>
