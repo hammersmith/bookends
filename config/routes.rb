@@ -5,5 +5,11 @@ Rails.application.routes.draw do
     get 'users/pending_registration' => 'registrations#pending'
   end
   root to: 'catalogs#home'
+  
+  resources :media_items do
+    collection do
+      get :check_inventory
+    end
+  end
 
 end

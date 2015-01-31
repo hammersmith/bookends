@@ -37,4 +37,5 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise', '~> 3.4'
+gem 'handlebars_assets', '~> 0.18'
 

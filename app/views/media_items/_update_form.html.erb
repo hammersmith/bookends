@@ -1,0 +1,5 @@
+<%= form_for media_item, html: { class: 'js-update-item-form' }, remote: true do |f| %>
+  <%= f.number_field :quantity, id: '', min: 0 %>
+  <%= f.submit 'Update' %>
+  <%= link_to 'Remove', media_item_path(media_item), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'js-remove-item' %>
+<% end %>
