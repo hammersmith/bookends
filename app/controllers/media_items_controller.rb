@@ -3,11 +3,11 @@ class MediaItemsController < ApplicationController
   before_filter :find_media_item, only: [:show, :update, :destroy]
 
   def create
-    media_item = MediaItem.new(media_item_params)
-    if media_item.save
+    @media_item = MediaItem.new(media_item_params)
+    if @media_item.save
       render json: { 
-        remoteId: media_item.remote_id,
-        form: render_to_string(partial: 'update_form', locals: { media_item: media_item })
+        remoteId: @media_item.remote_id,
+        form: render_to_string(partial: 'update_form', locals: { media_item: @media_item })
       }
     else
       render nothing: true, status: :not_acceptable
