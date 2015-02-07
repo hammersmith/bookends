@@ -1,13 +1,13 @@
 class MediaItemsController < ApplicationController
   
-  before_filter :find_media_item, only: [:show, :update, :destroy]
+  before_filter :find_work, only: [:show, :update, :destroy]
 
   def create
-    media_item = MediaItem.new(media_item_params)
-    if media_item.save
+    work = MediaItem.new(work_params)
+    if work.save
       render json: { 
-        remoteId: media_item.remote_id,
-        form: render_to_string(partial: 'update_form', locals: { media_item: media_item })
+        remoteId: work.remote_id,
+        form: render_to_string(partial: 'update_form', locals: { work: work })
       }
     else
       render nothing: true, status: :not_acceptable
@@ -18,8 +18,8 @@ class MediaItemsController < ApplicationController
   end
   
   def update
-    @media_item.quantity = params[:media_item][:quantity]
-    if @media_item.save
+    @work.quantity = params[:work][:quantity]
+    if @work.save
       render nothing: true
     else
       render nothing: true, status: :not_acceptable
@@ -27,13 +27,13 @@ class MediaItemsController < ApplicationController
   end
   
   def destroy
-    @media_item.destroy
-    render json: { remoteId: @media_item.remote_id }
+    @work.destroy
+    render json: { remoteId: @work.remote_id }
   end
   
   def check_inventory
     inventory = MediaItem.where(remote_id: params[:gbIds]).select(:id, :quantity, :remote_id).each_with_object({}) do |item, hash|
-      hash[item.remote_id] = render_to_string(partial: 'update_form', locals: { media_item: item })
+      hash[item.remote_id] = render_to_string(partial: 'update_form', locals: { work: item })
     end
     
     render json: inventory
@@ -41,11 +41,11 @@ class MediaItemsController < ApplicationController
   
   private
   
-  def find_media_item
-    @media_item = MediaItem.find(params[:id])
+  def find_work
+    @work = MediaItem.find(params[:id])
   end
   
-  def media_item_params
+  def work_params
     params.permit(:title, :author, :format, :remote_id, :quantity)
   end
   
