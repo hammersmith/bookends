@@ -1,5 +1,5 @@
 class DropMediaItem < ActiveRecord::Migration
   def change
-    drop_table :media_item
+    drop_table :media_items
   end
 end
