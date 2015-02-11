@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130054008) do
+ActiveRecord::Schema.define(version: 20150203003436) do
 
   create_table "media_items", force: true do |t|
     t.datetime "created_at"
@@ -22,8 +22,14 @@ ActiveRecord::Schema.define(version: 20150130054008) do
     t.text     "description"
     t.string   "category"
     t.string   "format"
-    t.integer  "isbn"
     t.integer  "quantity"
+    t.string   "pub"
+    t.string   "date"
+    t.string   "tags"
+    t.string   "collections"
+    t.string   "isbns"
+    t.string   "isbn"
+    t.string   "ltid"
   end
 
   create_table "users", force: true do |t|
