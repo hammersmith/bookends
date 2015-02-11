@@ -1,1 +1,8 @@
 <%= render partial: 'update_form', locals: { media_item: @media_item } %>
+<ul>
+  <li> Title: <%= @media_item.title %> </li>
+  <li> Author: <%= @media_item.author %> </li>
+  <li> Publisher: <%= @media_item.publisher %> </li>
+  <li> Publised Date: <%= @media_item.publishedDate %> </li>
+  <li> Quantityt: <%= @media_item.quantity %> </li>
+</ul>

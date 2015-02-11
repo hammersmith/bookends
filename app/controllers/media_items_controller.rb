@@ -2,6 +2,10 @@ class MediaItemsController < ApplicationController
   
   before_filter :find_media_item, only: [:show, :update, :destroy]
 
+  def index
+    @media_items = MediaItem.all
+  end
+
   def create
     @media_item = MediaItem.new(media_item_params)
     if @media_item.save
@@ -15,6 +19,7 @@ class MediaItemsController < ApplicationController
   end
   
   def show
+    @media_item = MediaItem.find(params[:id])
   end
   
   def update
