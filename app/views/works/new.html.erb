@@ -35,7 +35,7 @@
           return item.id;
         });
         
-        $.get('<%= check_inventory_media_items_path %>', { gbIds: gbIds }, function(response) {
+        $.get('<%= check_inventory_works_path %>', { gbIds: gbIds }, function(response) {
           gbIds.forEach(function(googleId) {
             var $resultElement = $('#gb_' + googleId);
             if (response[googleId]) {
