@@ -7,7 +7,7 @@
       <p>
         {{join authors ', '}} {{publisher}} {{publishedDate}}
       </p>
-      <form action="<%= Rails.application.routes.url_helpers.media_items_path %>" method="post" data-remote="true" class="js-add-item-form" style="display:none;">
+      <form action="<%= Rails.application.routes.url_helpers.works_path %>" method="post" data-remote="true" class="js-add-item-form" style="display:none;">
         <input type="hidden" name="title" value="{{title}}">
         <input type="hidden" name="author" value="{{join authors ', '}}">
         <input type="hidden" name="publisher" value="{{publisher}}">
