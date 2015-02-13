@@ -1,3 +1,7 @@
 language: ruby
+bundler_args: --without development production
 before_script:
   - mysql -e 'create database bookends_test';
+addons:
+  code_climate:
+    repo_token: b044ac42cf69cde3fe2680d9f4c7134d78f723666e768a9e1dfedb0a96f282ee
