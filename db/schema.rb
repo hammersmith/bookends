@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213044737) do
+ActiveRecord::Schema.define(version: 20150213051917) do
 
   create_table "identifiers", force: true do |t|
     t.datetime "created_at"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20150213044737) do
     t.string   "name"
     t.string   "shelf"
     t.string   "color"
+  end
+
+  create_table "sources", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "provider_key"
+    t.string   "provider_url"
+    t.integer  "work_id"
   end
 
   create_table "users", force: true do |t|

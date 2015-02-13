@@ -1,4 +1,5 @@
 class Work < ActiveRecord::Base
-  has_many :identifiers
   belongs_to :location
+  has_many :identifiers
+  has_one :source
 end
