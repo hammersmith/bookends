@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213040656) do
+ActiveRecord::Schema.define(version: 20150213044737) do
 
   create_table "identifiers", force: true do |t|
     t.datetime "created_at"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 20150213040656) do
     t.integer  "work_id"
     t.string   "code"
     t.string   "code_type"
+  end
+
+  create_table "locations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "shelf"
+    t.string   "color"
   end
 
   create_table "users", force: true do |t|
@@ -53,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150213040656) do
     t.string   "media_format"
     t.string   "publisher"
     t.date     "published_on"
-    t.integer  "category_id"
+    t.integer  "location_id"
     t.string   "image_url"
   end
 
