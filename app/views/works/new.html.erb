@@ -1,64 +1,7 @@
 <section>
-  <h1>Search for a Book</h1>
-  <%= form_tag 'https://www.googleapis.com/books/v1/volumes', method: :get do %>
-    <%= hidden_field_tag :key, 'AIzaSyCXUQDJUs1QWyf94HfZjacdbt7Q6rQr-Qc' %>
-    <%= text_field_tag :isbn %>
-    <button id="google_search">Search</button>
-  <% end %>
-  
-  <div id="search_results">
-  </div>
+  <h1>New Work</h1>
+
+  <%= render partial: 'form' %>
   
   <%= link_to 'Back to Catalog', root_path %>
 </section>
-
-<%= content_for :javascript do %>
-  <script>
-    $('#google_search').on('click', function(e) {
-      e.preventDefault();
-      
-      var $searchResults = $('#search_results');
-      $searchResults.html('spinner');
-      
-      var query = $('#isbn').val();
-      var data = {
-        q: query
-      }
-      
-      $.getJSON($('form').attr('action'), data, function(response) {
-        var results = HandlebarsTemplates.search_results({
-          items: response.items
-        });
-        
-        $searchResults.html(results);
-        var gbIds = response.items.map(function(item) {
-          return item.id;
-        });
-        
-        $.get('<%= check_inventory_works_path %>', { gbIds: gbIds }, function(response) {
-          gbIds.forEach(function(googleId) {
-            var $resultElement = $('#gb_' + googleId);
-            if (response[googleId]) {
-              $resultElement.append(response[googleId]);
-            } else {
-              $resultElement.find('.js-add-item-form').show();
-            }
-          });
-        });
-      });
-      
-    });
-    
-    $(document).on('ajax:success', '.js-add-item-form', function(event, data) {
-      var $resultElement = $('#gb_' + data.remoteId);
-      $resultElement.append(data.form);
-      $resultElement.find('.js-add-item-form').hide();
-    });
-    
-    $(document).on('ajax:success', '.js-remove-item', function(event, data) {
-      var $resultElement = $('#gb_' + data.remoteId);
-      $resultElement.find('.js-update-item-form').remove();
-      $resultElement.find('.js-add-item-form').show();
-    });
-  </script>
-<% end %>

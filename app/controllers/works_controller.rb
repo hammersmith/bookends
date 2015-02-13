@@ -2,12 +2,14 @@ class WorksController < ApplicationController
   
   before_filter :find_work, only: [:show, :update, :destroy]
 
+  def new
+    @work = Work.new
+  end
+
   def create
     @work = Work.new(work_params)
     if @work.save
-      render json: {
-        form: render_to_string(partial: 'update_form', locals: { work: @work })
-      }
+      redirect_to works_path
     else
       render nothing: true, status: :not_acceptable
     end
