@@ -8,7 +8,7 @@ class CreateUserDetails < ActiveRecord::Migration
       t.string :how_referred
       t.string :kid_info
       t.string :book_prefs
-      t.Boolean :homeschooled
+      t.boolean :homeschooled
       t.string :delivery_method
       t.integer :primary_ship_addr
       t.integer :secondary_ship_addr
