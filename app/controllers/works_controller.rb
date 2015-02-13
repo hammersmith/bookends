@@ -4,7 +4,6 @@ class WorksController < ApplicationController
 
   def create
     @work = Work.new(work_params)
-    @work.media_format = @work.media_format.titlecase
     if @work.save
       render json: {
         form: render_to_string(partial: 'update_form', locals: { work: @work })
@@ -18,7 +17,7 @@ class WorksController < ApplicationController
   end
   
   def update
-    @work.quantity = params[:work][:quantity]
+    @work.update_attributes(work_params)
     if @work.save
       render nothing: true
     else
@@ -28,15 +27,7 @@ class WorksController < ApplicationController
   
   def destroy
     @work.destroy
-    render json: { remoteId: @work.remote_id }
-  end
-  
-  def check_inventory
-    inventory = Work.where(remote_id: params[:gbIds]).select(:id, :quantity, :remote_id).each_with_object({}) do |item, hash|
-      hash[item.remote_id] = render_to_string(partial: 'update_form', locals: { work: item })
-    end
-    
-    render json: inventory
+    render nothing: true
   end
   
   private
@@ -46,7 +37,9 @@ class WorksController < ApplicationController
   end
   
   def work_params
-    params.permit(:title, :author, :media_format, :publisher, :published_on, :description)
+    parameters = params.require(:work).permit(:title, :author, :media_format, :publisher, :published_on, :description)
+    parameters[:media_format] = parameters[:media_format].try(:titleize)
+    parameters
   end
   
 end
