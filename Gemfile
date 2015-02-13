@@ -40,7 +40,8 @@ gem 'devise', '~> 3.4'
 gem 'handlebars_assets', '~> 0.18'
 
 group :development, :test do
-  gem "factory_girl_rails", "~> 4.0"
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'railroady', '~> 1.3'
 end
 
 group :test do

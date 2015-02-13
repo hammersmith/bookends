@@ -4,9 +4,9 @@ class WorksController < ApplicationController
 
   def create
     @work = Work.new(work_params)
+    @work.media_format = @work.media_format.titlecase
     if @work.save
-      render json: { 
-        remoteId: @work.remote_id,
+      render json: {
         form: render_to_string(partial: 'update_form', locals: { work: @work })
       }
     else
@@ -46,7 +46,7 @@ class WorksController < ApplicationController
   end
   
   def work_params
-    params.permit(:title, :author, :format, :remote_id, :quantity)
+    params.permit(:title, :author, :media_format, :publisher, :published_on, :description)
   end
   
 end
