@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  
-  factory :work do
+
+  factory :source do
   end
-  
+
 end

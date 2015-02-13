@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212034812) do
+ActiveRecord::Schema.define(version: 20150213054358) do
+
+  create_table "books", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "work_id"
+    t.string   "status"
+    t.string   "condition"
+  end
+
+  create_table "identifiers", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "work_id"
+    t.string   "code"
+    t.string   "code_type"
+  end
+
+  create_table "locations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "shelf"
+    t.string   "color"
+  end
+
+  create_table "sources", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "provider_key"
+    t.string   "provider_url"
+    t.integer  "work_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -39,14 +72,14 @@ ActiveRecord::Schema.define(version: 20150212034812) do
   create_table "works", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remote_id"
     t.string   "title"
     t.string   "author"
     t.text     "description"
-    t.string   "category"
-    t.string   "format"
-    t.integer  "isbn"
-    t.integer  "quantity"
+    t.string   "media_format"
+    t.string   "publisher"
+    t.date     "published_on"
+    t.integer  "location_id"
+    t.string   "image_url"
   end
 
 end
