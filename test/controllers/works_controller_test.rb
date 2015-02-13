@@ -13,7 +13,7 @@ class WorksControllerTest < ControllerTestCase
 
     assert_response :success
     assert_template 'works/_form'
-    assert assigns(:work).is_a?(Work)
+    assert_instance_of Work, assigns(:work)
   end
   
   test 'should create new item' do
@@ -37,6 +37,22 @@ class WorksControllerTest < ControllerTestCase
     assert_equal 'Harper Collins', work.publisher
     assert_equal Date.parse('1950-06-07'), work.published_on
   end
+
+  test 'should render form errors on create' do
+    assert_no_difference 'Work.count' do
+      post :create, work: {
+                    id:           5,
+                    author:       'C.S. Lewis',
+                    description:  'Cool Stuff',
+                    media_format: 'Thing',
+                    publisher:    'Harper Collins',
+                    published_on: '1950-06-07'
+                  }
+    end
+
+    assert_response :not_acceptable
+    assert_template 'create', partial: 'form'
+  end
   
   test 'should get show' do
     create :work, id: 1
@@ -44,11 +60,11 @@ class WorksControllerTest < ControllerTestCase
     get :show, id: 1
     assert_response :success
     assert_template 'works/_update_form'
-    assert assigns(:work).is_a?(Work)
+    assert_instance_of Work, assigns(:work)
   end
 
   test 'should update item' do
-    create :work, id: 1, title: 'original', publisher: 'foobar'
+    thing = create :work, id: 1, title: 'original'
 
     assert_no_difference 'Work.count' do
       put :update, id: 1, work: { title: 'Poems', publisher: 'Faber' }
@@ -58,6 +74,17 @@ class WorksControllerTest < ControllerTestCase
     work = assigns(:work)
     assert_equal 'Poems', work.title
     assert_equal 'Faber', work.publisher
+  end
+
+  test 'should not update item if invalid' do
+    create :work, id: 1, title: 'original'
+
+    assert_no_difference 'Work.count' do
+      put :update, id: 1, work: { title: '', publisher: 'Faber' }
+    end
+    assert_response :not_acceptable
+
+    assert_instance_of Work, assigns(:work)
   end
 
   test 'should destroy item' do

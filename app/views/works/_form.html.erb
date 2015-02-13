@@ -2,7 +2,7 @@
   <%= f.input :title %>
   <%= f.input :author %>
   <%= f.input :description %>
-  <%= f.input :media_format %>
+  <%= f.input :media_format, collection: Work::MEDIA_FORMATS, include_blank: false %>
   <%= f.input :publisher %>
   <%= f.input :published_on %>
 
