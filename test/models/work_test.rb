@@ -26,4 +26,12 @@ class WorkTest < ModelTestCase
     assert_equal ['wrong is not a valid format'], work_invalid.errors.messages[:media_format]
   end
 
+  test 'must have location set' do
+    work = build :work, location: nil
+    assert_not_predicate work, :valid?
+    assert_equal ["can't be blank"], work.errors.messages[:location]
+    work.location = create :location
+    assert_predicate work, :valid?
+  end
+
 end
