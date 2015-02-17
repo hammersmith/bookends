@@ -9,5 +9,6 @@ class Work < ActiveRecord::Base
 
   validates :title, :author, :media_format, :location, presence: true
   validates :media_format, inclusion: { in: MEDIA_FORMATS, message: '%{value} is not a valid format' }
+  validates :published_on, date: true
 
 end

@@ -34,4 +34,12 @@ class WorkTest < ModelTestCase
     assert_predicate work, :valid?
   end
 
+  test 'should have valid date if provided' do
+    work = build :work
+    assert_predicate work, :valid?
+    work.published_on = 'foobar'
+    assert_not_predicate work, :valid?
+    assert_equal ['must be a date'], work.errors[:published_on]
+  end
+
 end
