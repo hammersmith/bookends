@@ -7,6 +7,8 @@ class Work < ActiveRecord::Base
   has_many :books
   has_one :source
 
-  validates :title, :author, :media_format, presence: true
+  validates :title, :author, :media_format, :location, presence: true
   validates :media_format, inclusion: { in: MEDIA_FORMATS, message: '%{value} is not a valid format' }
+  validates :published_on, date: true
+
 end

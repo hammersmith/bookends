@@ -4,6 +4,7 @@ FactoryGirl.define do
     title 'The Great Gatsby'
     author 'F. Scott Fitzgerald'
     media_format 'Book'
+    location
   end
   
 end

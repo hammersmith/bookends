@@ -17,6 +17,8 @@ class WorksControllerTest < ControllerTestCase
   end
   
   test 'should create new item' do
+    location = create :location
+
     assert_difference 'Work.count', 1 do
       post :create, work: {
                     id:           5,
@@ -25,7 +27,8 @@ class WorksControllerTest < ControllerTestCase
                     description:  'Cool Stuff',
                     media_format: 'BOOK',
                     publisher:    'Harper Collins',
-                    published_on: '1950-06-07'
+                    published_on: '1950-06-07',
+                    location_id:  location.id
                   }
     end
 

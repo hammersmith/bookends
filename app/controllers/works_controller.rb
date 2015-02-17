@@ -39,7 +39,7 @@ class WorksController < ApplicationController
   end
   
   def work_params
-    parameters = params.require(:work).permit(:title, :author, :media_format, :publisher, :published_on, :description)
+    parameters = params.require(:work).permit(:title, :author, :media_format, :publisher, :published_on, :description, :location_id)
     if parameters[:media_format]
       parameters[:media_format] = parameters[:media_format].titleize
     end
