@@ -2,21 +2,21 @@ require 'test_helper'
 
 class WorkTest < ModelTestCase
 
-  test 'identifiers returns an Identifier' do
+  test 'should have identifiers return instances of Identifier' do
     work = build :work, id: 1
     create :identifier, work_id: 1
 
-    assert_equal Identifier, work.identifiers.first.class
+    assert_instance_of Identifier, work.identifiers.first
   end
 
-  test 'validates presence of title and author' do
+  test 'should validate presence of title and author' do
     work = Work.new
     assert_not_predicate work, :valid?
     assert_equal ["can't be blank"], work.errors.messages[:title]
     assert_equal ["can't be blank"], work.errors.messages[:author]
   end
 
-  test 'validates media_format' do
+  test 'should validate media_format' do
     work_blank = Work.new
     assert_not_predicate work_blank, :valid?
     assert_equal ["can't be blank", ' is not a valid format'], work_blank.errors.messages[:media_format]
@@ -26,7 +26,7 @@ class WorkTest < ModelTestCase
     assert_equal ['wrong is not a valid format'], work_invalid.errors.messages[:media_format]
   end
 
-  test 'must have location set' do
+  test 'should validate that the location is set' do
     work = build :work, location: nil
     assert_not_predicate work, :valid?
     assert_equal ["can't be blank"], work.errors.messages[:location]
@@ -40,6 +40,15 @@ class WorkTest < ModelTestCase
     work.published_on = 'foobar'
     assert_not_predicate work, :valid?
     assert_equal ['must be a date'], work.errors[:published_on]
+  end
+
+  test 'should return available works' do
+    unavailable_work = create :work, title: 'unavailable'
+    available_work = create :work, title: 'available'
+    create :book, work_id: available_work.id, status: :available
+    create :book, work_id: unavailable_work.id, status: :reserved
+
+    assert_equal [available_work],  Work.available
   end
 
 end
