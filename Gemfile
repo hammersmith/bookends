@@ -36,17 +36,22 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'devise', '~> 3.4'
 gem 'handlebars_assets', '~> 0.18'
 gem 'simple_form', '~> 3.1'
+gem 'sunspot_rails', '~> 2.1'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'minitest-reporters'
 end
 
 group :development do
   gem 'railroady', '~> 1.3'
   gem 'spring'
+  gem 'sunspot_solr'
+  gem 'progress_bar'
 end
 
 group :test do
   gem 'rake'
   gem 'codeclimate-test-reporter', require: nil
+
 end

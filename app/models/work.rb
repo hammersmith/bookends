@@ -11,4 +11,8 @@ class Work < ActiveRecord::Base
   validates :media_format, inclusion: { in: MEDIA_FORMATS, message: '%{value} is not a valid format' }
   validates :published_on, date: true
 
+
+  searchable do
+    text :title, :author, :media_format
+  end
 end
