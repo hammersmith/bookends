@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
   has_one :user_detail
   has_many :orders
   has_many :donations
+  enum role: [ :guest, :default, :worker, :manager, :admin ]
 end
