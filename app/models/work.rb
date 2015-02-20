@@ -14,6 +14,13 @@ class Work < ActiveRecord::Base
   scope :available, -> { where(id: Book.available.select(:work_id)) }
 
   searchable do
-    text :title, :author, :media_format
+    text :title, as: :title_substring_text
+    text :author, as: :author_substring_text
+    text :description, :media_format
+    boolean :available do
+      books.any?(&:available?)
+    end
   end
+
+  after_touch :index
 end

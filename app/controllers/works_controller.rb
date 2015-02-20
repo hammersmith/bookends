@@ -9,7 +9,7 @@ class WorksController < ApplicationController
   def create
     @work = Work.new(work_params)
     if @work.save
-      redirect_to works_path
+      redirect_to work_path(@work)
     else
       render 'create', status: :not_acceptable
     end
@@ -30,6 +30,10 @@ class WorksController < ApplicationController
   def destroy
     @work.destroy
     render nothing: true
+  end
+
+  def search
+    @works = WorkSearch.search(params[:query])
   end
   
   private

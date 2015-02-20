@@ -41,6 +41,7 @@ gem 'sunspot_rails', '~> 2.1'
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'minitest-reporters'
+  gem 'mocha', '~> 1.1'
 end
 
 group :development do

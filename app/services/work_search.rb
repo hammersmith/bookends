@@ -1,0 +1,3 @@
+class WorkSearch
+
+end

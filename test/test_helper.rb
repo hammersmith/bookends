@@ -9,8 +9,9 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'mocha/mini_test'
 
-# Don't really use SOLR in tests
+# Don't really use SOLR in unit tests
 Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
 
 class ModelTestCase < ActiveSupport::TestCase
