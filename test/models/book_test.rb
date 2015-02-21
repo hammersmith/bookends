@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BookTest < ModelTestCase
+class BookTest < UnitTestCase
 
   test 'should return available Books' do
     available_book = create :book, status: :available

@@ -10,15 +10,18 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/mini_test'
+require 'sunspot_matchers/test_helper'
 
 # Don't really use SOLR in unit tests
-Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
+Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
 
-class ModelTestCase < ActiveSupport::TestCase
+class UnitTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+  include SunspotMatchers::TestHelper
 end
 
 class ControllerTestCase < ActionController::TestCase
   include Devise::TestHelpers
   include FactoryGirl::Syntax::Methods
+  include SunspotMatchers::TestHelper
 end

@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class DonationTest < ModelTestCase
+class DonationTest < UnitTestCase
 end

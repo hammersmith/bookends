@@ -110,7 +110,7 @@ class WorksControllerTest < ControllerTestCase
                   published_on: '1/1/1942',
                   image_url: 'http://upload.wikimedia.org/wikipedia/en/6/65/GoDownMoses.jpg'
 
-    WorkSearch.expects(:search).with('Moses').returns([work])
+    WorkSearch.expects(:search).with(query: 'Moses').returns([work])
 
     assert_no_difference 'Work.count' do
       xhr :get, :search, query: 'Moses'

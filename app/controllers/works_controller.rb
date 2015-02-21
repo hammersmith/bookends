@@ -33,7 +33,7 @@ class WorksController < ApplicationController
   end
 
   def search
-    @works = WorkSearch.search(params[:query])
+    @works = WorkSearch.search(query: params[:query])
   end
   
   private

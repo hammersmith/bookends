@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IdentifierTest < ModelTestCase
+class IdentifierTest < UnitTestCase
   test 'should belong to Work' do
     work = create :work, id: 1
     identifier = build :identifier, work_id: 1

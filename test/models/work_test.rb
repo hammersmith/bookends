@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WorkTest < ModelTestCase
+class WorkTest < UnitTestCase
 
   test 'should have identifiers return instances of Identifier' do
     work = build :work, id: 1

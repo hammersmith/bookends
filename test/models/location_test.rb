@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LocationTest < ModelTestCase
+class LocationTest < UnitTestCase
 
   test 'validate presence of attributes' do
     location = Location.new

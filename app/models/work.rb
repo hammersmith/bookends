@@ -16,10 +16,11 @@ class Work < ActiveRecord::Base
   searchable do
     text :title, as: :title_substring_text
     text :author, as: :author_substring_text
-    text :description, :media_format
+    text :description
     boolean :available do
       books.any?(&:available?)
     end
+    string :media_format
   end
 
   after_touch :index

@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class UserTest < ModelTestCase
+class UserTest < UnitTestCase
 end
