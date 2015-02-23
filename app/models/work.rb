@@ -23,5 +23,5 @@ class Work < ActiveRecord::Base
     string :media_format
   end
 
-  after_touch :index
+  after_touch :index!
 end

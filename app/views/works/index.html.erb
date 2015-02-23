@@ -1,8 +1,13 @@
 <h1>Works Index</h1>
 
-<%= form_tag search_works_path, method: :get, remote: true do %>
-  <%= text_field_tag :query %>
-  <%= submit_tag 'Search' %>
+<%= simple_form_for @search_form, url: search_works_path, method: :get, remote: true do |f| %>
+  <%= f.input :query %>
+  <%= f.input :title %>
+  <%= f.input :author %>
+  <%= f.input :contains, label: 'Has the words' %>
+  <%= f.input :media_format, collection: Work::MEDIA_FORMATS %>
+  <%= f.input :available, as: :boolean %>
+  <%= f.submit 'Search' %>
 <% end %>
 
 <%= link_to 'New Work', new_work_path %>

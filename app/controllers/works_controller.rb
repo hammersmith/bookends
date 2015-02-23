@@ -2,6 +2,10 @@ class WorksController < ApplicationController
   
   before_filter :find_work, only: [:show, :update, :destroy]
 
+  def index
+    @search_form = SearchForm.new
+  end
+
   def new
     @work = Work.new
   end
@@ -33,13 +37,18 @@ class WorksController < ApplicationController
   end
 
   def search
-    @works = WorkSearch.search(query: params[:query])
+    searcher = WorkSearch.new(works_search_params)
+    @works = searcher.results
   end
   
   private
   
   def find_work
     @work = Work.find(params[:id])
+  end
+
+  def works_search_params
+    params.require(:works_search).permit(:contains, :type, :title, :author, :available)
   end
   
   def work_params
