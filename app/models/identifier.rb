@@ -1,3 +1,3 @@
 class Identifier < ActiveRecord::Base
-  belongs_to :work
+  belongs_to :work, touch: true
 end

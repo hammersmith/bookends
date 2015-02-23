@@ -28,7 +28,7 @@ class WorkSearch
 
   def build_search_using(fields)
     Work.search do |query|
-      constrain query, with: [:available, :media_format]
+      constrain query, with: [:available, :media_format, :identifiers]
       fields.each do |field|
         query.fulltext @search_params[field] do |text|
           if field == :contains

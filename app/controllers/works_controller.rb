@@ -48,7 +48,7 @@ class WorksController < ApplicationController
   end
 
   def works_search_params
-    params.require(:works_search).permit(:contains, :type, :title, :author, :available)
+    params.require(:works_search).permit(:contains, :type, :title, :author, :available, :identifiers)
   end
   
   def work_params

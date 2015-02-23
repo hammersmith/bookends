@@ -51,4 +51,10 @@ class WorkTest < UnitTestCase
     assert_equal [available_work],  Work.available
   end
 
+  test 'should call SOLR index! after touch' do
+    work = create :work
+    work.expects(:index!)
+    work.touch
+  end
+
 end

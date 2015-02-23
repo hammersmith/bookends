@@ -13,6 +13,8 @@ class Work < ActiveRecord::Base
 
   scope :available, -> { where(id: Book.available.select(:work_id)) }
 
+  after_touch :index!
+
   searchable do
     text :title, as: :title_substring_text
     text :author, as: :author_substring_text
@@ -21,7 +23,9 @@ class Work < ActiveRecord::Base
       books.any?(&:available?)
     end
     string :media_format
+    string :identifiers, multiple: true do
+      identifiers.map(&:code)
+    end
   end
 
-  after_touch :index!
 end
