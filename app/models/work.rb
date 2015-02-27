@@ -11,4 +11,21 @@ class Work < ActiveRecord::Base
   validates :media_format, inclusion: { in: MEDIA_FORMATS, message: '%{value} is not a valid format' }
   validates :published_on, date: true
 
+  scope :available, -> { where(id: Book.available.select(:work_id)) }
+
+  after_touch :index!
+
+  searchable do
+    text :title, as: :title_substring_text
+    text :author, as: :author_substring_text
+    text :description
+    boolean :available do
+      books.any?(&:available?)
+    end
+    string :media_format
+    string :identifiers, multiple: true do
+      identifiers.map(&:code)
+    end
+  end
+
 end

@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   end
   root to: 'catalogs#home'
   
-  resources :works
+  resources :works do
+    collection do
+      get :search
+    end
+  end
 
 end

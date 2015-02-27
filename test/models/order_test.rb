@@ -1,4 +1,4 @@
 require 'test_helper'
-class OrderTest < ModelTestCase
 
+class OrderTest < UnitTestCase
 end

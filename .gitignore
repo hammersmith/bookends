@@ -9,7 +9,12 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.lck
 /tmp
 /doc
+
+/solr/*
+!solr/conf
+!solr/solr.xml
 
 config/database.yml

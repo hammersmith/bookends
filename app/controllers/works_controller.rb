@@ -2,6 +2,10 @@ class WorksController < ApplicationController
   
   before_filter :find_work, only: [:show, :update, :destroy]
 
+  def index
+    @search_form = SearchForm.new
+  end
+
   def new
     @work = Work.new
   end
@@ -9,7 +13,7 @@ class WorksController < ApplicationController
   def create
     @work = Work.new(work_params)
     if @work.save
-      redirect_to works_path
+      redirect_to work_path(@work)
     else
       render 'create', status: :not_acceptable
     end
@@ -31,11 +35,20 @@ class WorksController < ApplicationController
     @work.destroy
     render nothing: true
   end
+
+  def search
+    searcher = WorkSearch.new(works_search_params)
+    @works = searcher.results
+  end
   
   private
   
   def find_work
     @work = Work.find(params[:id])
+  end
+
+  def works_search_params
+    params.require(:works_search).permit(:contains, :type, :title, :author, :available, :identifiers)
   end
   
   def work_params

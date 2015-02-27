@@ -21,7 +21,7 @@ class WorksControllerTest < ControllerTestCase
 
     assert_difference 'Work.count', 1 do
       post :create, work: {
-                    id:           5,
+                    id:           'bogus',
                     title:        'Title',
                     author:       'C.S. Lewis',
                     description:  'Cool Stuff',
@@ -32,9 +32,8 @@ class WorksControllerTest < ControllerTestCase
                   }
     end
 
-    assert_redirected_to works_path
     work = assigns(:work)
-    assert_not_equal 5, work.id
+    assert_redirected_to work_path(work.id)
     assert_equal 'Title', work.title
     assert_equal 'Book', work.media_format
     assert_equal 'Harper Collins', work.publisher
@@ -67,7 +66,7 @@ class WorksControllerTest < ControllerTestCase
   end
 
   test 'should update item' do
-    thing = create :work, id: 1, title: 'original'
+    create :work, id: 1, title: 'original'
 
     assert_no_difference 'Work.count' do
       put :update, id: 1, work: { title: 'Poems', publisher: 'Faber' }
@@ -99,6 +98,48 @@ class WorksControllerTest < ControllerTestCase
     assert_response :success
 
     assert_equal 1, assigns(:work).id
+  end
+
+  test 'should return json search response' do
+    work = create :work,
+                  title: 'Go Down Moses',
+                  author: 'William Faulkner',
+                  description: 'A good book',
+                  publisher: 'Random House',
+                  published_on: '1/1/1942',
+                  image_url: 'http://upload.wikimedia.org/wikipedia/en/6/65/GoDownMoses.jpg'
+
+    WorkSearch.expects(:new).
+      with('contains' => 'Moses').
+      returns(mock(results: [work]))
+
+    assert_no_difference 'Work.count' do
+      xhr :get, :search, works_search: { contains: 'Moses' }
+    end
+
+    assert_response :success
+    assert_not_nil assigns(:works)
+    search_results = JSON.parse(@response.body, symbolize_names: true)
+    expected_results = {
+      works: [
+        {
+          title: work.title,
+          author: work.author,
+          description: work.description,
+          mediaFormat: work.media_format,
+          publisher: work.publisher,
+          publishedOn: work.published_on.to_s,
+          imageUrl: work.image_url,
+          location: {
+            name: work.location.name,
+            shelf: work.location.shelf,
+            color: work.location.color
+          }
+        }
+      ]
+    }
+
+    assert_equal expected_results, search_results
   end
   
 end
