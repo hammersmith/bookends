@@ -21,7 +21,7 @@ class WorksControllerTest < ControllerTestCase
 
     assert_difference 'Work.count', 1 do
       post :create, work: {
-                    id:           5,
+                    id:           'bogus',
                     title:        'Title',
                     author:       'C.S. Lewis',
                     description:  'Cool Stuff',
@@ -34,7 +34,6 @@ class WorksControllerTest < ControllerTestCase
 
     work = assigns(:work)
     assert_redirected_to work_path(work.id)
-    assert_not_equal 5, work.id
     assert_equal 'Title', work.title
     assert_equal 'Book', work.media_format
     assert_equal 'Harper Collins', work.publisher
@@ -127,10 +126,10 @@ class WorksControllerTest < ControllerTestCase
           title: work.title,
           author: work.author,
           description: work.description,
-          media_format: work.media_format,
+          mediaFormat: work.media_format,
           publisher: work.publisher,
-          published_on: work.published_on.to_s,
-          image_url: work.image_url,
+          publishedOn: work.published_on.to_s,
+          imageUrl: work.image_url,
           location: {
             name: work.location.name,
             shelf: work.location.shelf,
