@@ -57,4 +57,20 @@ class WorkTest < UnitTestCase
     work.touch
   end
 
+  test 'should be available? if it has available books' do
+    work = create :work
+    assert_not_predicate work, :available?
+    create :book, work: work, status: :reserved
+    assert_not_predicate work, :available?
+    create :book, work: work, status: :available
+    assert_predicate work, :available?
+  end
+
+  test 'should return identifying codes' do
+    work = create :work
+    create :identifier, work: work, code: 'isbn'
+    create :identifier, work: work, code: 'loc'
+    assert_equal %w(isbn loc), work.identifying_codes
+  end
+
 end
