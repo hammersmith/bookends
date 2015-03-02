@@ -6,6 +6,16 @@ class WorksControllerTest < ControllerTestCase
     sign_in create(:user)
   end
 
+  test 'should set search_form on index' do
+    assert_no_difference 'Work.count' do
+      get :index
+    end
+
+    assert_response :success
+    assert_template 'works/index'
+    assert_instance_of WorksController::SearchForm, assigns(:search_form)
+  end
+
   test 'should set blank new work' do
     assert_no_difference 'Work.count' do
       get :new

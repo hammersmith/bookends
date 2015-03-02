@@ -19,13 +19,17 @@ class Work < ActiveRecord::Base
     text :title, as: :title_substring_text
     text :author, as: :author_substring_text
     text :description
-    boolean :available do
-      books.any?(&:available?)
-    end
+    boolean :available, using: :available?
     string :media_format
-    string :identifiers, multiple: true do
-      identifiers.map(&:code)
-    end
+    string :identifiers, multiple: true, using: :identifying_codes
+  end
+
+  def available?
+    books.available.exists?
+  end
+
+  def identifying_codes
+    identifiers.pluck(:code)
   end
 
 end
