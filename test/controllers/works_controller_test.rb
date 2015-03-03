@@ -151,5 +151,32 @@ class WorksControllerTest < ControllerTestCase
 
     assert_equal expected_results, search_results
   end
+
+  test 'should accept search params' do
+    WorkSearch.expects(:new).
+      with('title'        => 'title',
+           'author'       => 'author',
+           'contains'     => 'Moses',
+           'identifiers'  => 'isbn',
+           'media_format' => 'book',
+           'available'    => '1').
+      returns(mock(results: []))
+
+    assert_no_difference 'Work.count' do
+      xhr :get, :search, works_search: {
+                query: 'not_allowed',
+                title: 'title',
+                author: 'author',
+                contains: 'Moses',
+                identifiers: 'isbn',
+                media_format: 'book',
+                available: '1',
+                random: 'not_allowed',
+              }
+    end
+
+    assert_response :success
+    assert_not_nil assigns(:works)
+  end
   
 end
