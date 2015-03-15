@@ -9,10 +9,11 @@
 
 <%= content_for :javascript do %>
   <script>
-    'use strict';
-
-    $('.js-work-search-form').on('ajax:success', function(e, data) {
-      $('#search_results').html(HandlebarsTemplates.searchResults(data));
-    });
+    (function() {
+      'use strict';
+        System.import('components/search_renderer').then(function(searchRenderer) {
+           searchRenderer.render('.js-work-search-form', '#search_results');
+        });
+    })();
   </script>
 <% end %>

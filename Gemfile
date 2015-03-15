@@ -4,7 +4,7 @@ gem 'rails', '4.2.0'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -37,6 +37,8 @@ gem 'devise', '~> 3.4'
 gem 'handlebars_assets', '~> 0.18'
 gem 'simple_form', '~> 3.1'
 gem 'sunspot_rails', '~> 2.1'
+gem 'sprockets', '~> 3.0.0.beta'
+gem 'sprockets-es6', '~> 0.6'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
