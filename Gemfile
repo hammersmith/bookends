@@ -39,6 +39,7 @@ gem 'simple_form', '~> 3.1'
 gem 'sunspot_rails', '~> 2.1'
 gem 'sprockets', '~> 3.0.0.beta'
 gem 'sprockets-es6', '~> 0.6'
+gem 'faraday', '~> 0.9'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
@@ -57,4 +58,5 @@ end
 group :test do
   gem 'rake'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'webmock', '~> 1.20'
 end
