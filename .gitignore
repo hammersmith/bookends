@@ -18,3 +18,4 @@
 !solr/solr.xml
 
 config/database.yml
+config/secrets.yml
