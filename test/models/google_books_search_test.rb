@@ -2,14 +2,6 @@ require 'test_helper'
 
 class GoogleBooksSearchTest < UnitTestCase
 
-  test 'should accept search params' do
-    GoogleBooksSearch.new(
-      'title'       => 'test',
-      'author'      => 'someone',
-      'description' => ''
-    )
-  end
-
   test 'should parse search query' do
     search = GoogleBooksSearch.new(
       'title'       => 'test',

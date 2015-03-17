@@ -6,6 +6,11 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <header>
+      <%= link_to 'Works Index', works_path %>
+      <%= link_to 'New Work', new_work_path %>
+    </header>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 

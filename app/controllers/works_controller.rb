@@ -48,11 +48,11 @@ class WorksController < ApplicationController
   end
 
   def works_search_params
-    params.require(:works_search).permit(:contains, :title, :author, :available, :identifiers, :media_format)
+    params.require(:works_search).permit(:contains, :title, :author, :available, :identifiers, :media_format).symbolize_keys
   end
   
   def work_params
-    parameters = params.require(:work).permit(:title, :author, :media_format, :publisher, :published_on, :description, :location_id)
+    parameters = params.require(:work).permit(:title, :author, :media_format, :publisher, :published_on, :description, :location_id).symbolize_keys
     if parameters[:media_format]
       parameters[:media_format] = parameters[:media_format].titleize
     end
