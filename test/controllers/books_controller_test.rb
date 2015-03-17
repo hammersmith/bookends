@@ -29,7 +29,7 @@ class BooksControllerTest < ControllerTestCase
     }
 
     searcher = mock(search: expected_results)
-    GoogleBooksSearch.expects(:new).with(search_params).returns(searcher)
+    GoogleBooks::SearchProxy.expects(:new).with(search_params).returns(searcher)
 
     get :search_google, works_search: search_params.merge(bogus: 'stuff')
 
