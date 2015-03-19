@@ -53,6 +53,7 @@ group :development do
   gem 'spring'
   gem 'sunspot_solr'
   gem 'progress_bar'
+  gem 'pry-rails'
 end
 
 group :test do
