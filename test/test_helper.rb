@@ -11,6 +11,9 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/mini_test'
 require 'sunspot_matchers/test_helper'
+require 'webmock/minitest'
+
+WebMock.disable_net_connect!(allow: %w{codeclimate.com})
 
 # Don't really use SOLR in unit tests
 Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)

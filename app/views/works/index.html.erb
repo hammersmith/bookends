@@ -1,21 +1,6 @@
 <h1>Works Index</h1>
 
-<%= simple_form_for @search_form,
-                    url: search_works_path,
-                    method: :get,
-                    remote: true,
-                    html: {
-                      class: 'js-work-search-form'
-                    } do |f| %>
-  <%= f.input :query %>
-  <%= f.input :title %>
-  <%= f.input :author %>
-  <%= f.input :contains, label: 'Has the words' %>
-  <%= f.input :identifiers, label: 'ISBN' %>
-  <%= f.input :media_format, collection: Work::MEDIA_FORMATS %>
-  <%= f.input :available, as: :boolean %>
-  <%= f.submit 'Search' %>
-<% end %>
+<%= render partial: 'works/search_form' %>
 
 <%= link_to 'New Work', new_work_path %>
 
@@ -24,10 +9,11 @@
 
 <%= content_for :javascript do %>
   <script>
-    'use strict';
-
-    $('.js-work-search-form').on('ajax:success', function(e, data) {
-      $('#search_results').html(HandlebarsTemplates.searchResults(data));
-    });
+    (function() {
+      'use strict';
+        System.import('components/search_renderer').then(function(searchRenderer) {
+           searchRenderer.render('.js-work-search-form', '#search_results');
+        });
+    })();
   </script>
 <% end %>

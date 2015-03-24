@@ -1,0 +1,14 @@
+{
+  "name": "systemjs",
+  "homepage": "https://github.com/mrdoob/system.js",
+  "_release": "082180adba",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "082180adba2b42f21b24aa00a7b117108c3c6097"
+  },
+  "_source": "git://github.com/mrdoob/system.js.git",
+  "_target": "*",
+  "_originalSource": "systemjs",
+  "_direct": true
+}

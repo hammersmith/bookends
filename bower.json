@@ -1,0 +1,7 @@
+{
+  "name": "bookends",
+  "private": true,
+  "dependencies": {
+    "system.js": "~0.15.0"
+  }
+}

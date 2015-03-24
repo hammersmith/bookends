@@ -1,0 +1,7 @@
+development:
+  url: 'https://replace_me.com'
+  api_key: 'replace_me'
+
+test:
+  url: 'https://googletest.com'
+  api_key: 'google_api'

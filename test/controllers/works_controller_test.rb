@@ -120,7 +120,7 @@ class WorksControllerTest < ControllerTestCase
                   image_url: 'http://upload.wikimedia.org/wikipedia/en/6/65/GoDownMoses.jpg'
 
     WorkSearch.expects(:new).
-      with('contains' => 'Moses').
+      with(contains: 'Moses').
       returns(mock(results: [work]))
 
     assert_no_difference 'Work.count' do
@@ -154,12 +154,12 @@ class WorksControllerTest < ControllerTestCase
 
   test 'should accept search params' do
     WorkSearch.expects(:new).
-      with('title'        => 'title',
-           'author'       => 'author',
-           'contains'     => 'Moses',
-           'identifiers'  => 'isbn',
-           'media_format' => 'book',
-           'available'    => '1').
+      with(title:        'title',
+           author:       'author',
+           contains:     'Moses',
+           identifiers:  'isbn',
+           media_format: 'book',
+           available:    '1').
       returns(mock(results: []))
 
     assert_no_difference 'Work.count' do

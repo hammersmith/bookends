@@ -10,10 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
 
-//= require handlebars.runtime
-//= require handlebars_helpers
-//= require_tree ./templates
+//= require es6-module-loader.src
+//= require system.js/dist/system.src
+//= require extensions/import_all
+
+import 'jquery_ujs';
+import 'extensions/handlebars_helpers';
