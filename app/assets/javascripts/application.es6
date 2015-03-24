@@ -10,29 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require es6-module-loader.src
 //= require system.js/dist/system.src
+//= require extensions/import_all
 
-System.config({
-  baseURL: '/assets/',
-  map: {
-    'jquery': 'jquery2',
-    'handlebars': 'handlebars.runtime'
-  },
-  meta: {
-    'jquery2': {
-      format: 'global',
-      exports: 'jQuery'
-    },
-    'jquery_ujs': {
-      deps: ['jquery']
-    },
-    'extensions/handlebars_helpers': {
-      format: 'global',
-      deps: ['handlebars']
-    }
-  }
-});
-
-System.import('jquery_ujs');
-System.import('extensions/handlebars_helpers');
+import 'jquery_ujs';
+import 'extensions/handlebars_helpers';

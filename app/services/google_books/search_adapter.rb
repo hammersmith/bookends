@@ -7,31 +7,34 @@ module GoogleBooks
 
     def translate
       @data.map do |entry|
-        {}.tap do |result|
-          volume = entry[:volumeInfo]
-          result[:title] = volume[:title]
-          result[:author] = volume[:authors].join(' ')
-          result[:publisher] = volume[:publisher]
-          result[:published_on] = volume[:publishedDate]
-          result[:media_format] = volume[:printType].titleize
-          result[:description] = volume[:description]
 
-          image_urls = volume[:imageLinks] || {}
-          result[:image_url] = image_urls[:thumbnail]
+        volume = entry[:volumeInfo]
+        image_urls = volume[:imageLinks] || {}
 
-          result[:source] = {
-            provider: 'google_books',
-            provider_key: entry[:id],
-            provider_url: entry[:selfLink]
-          }
+        work = Work.new(
+          title:        volume[:title],
+          author:       volume[:authors].join(' '),
+          publisher:    volume[:publisher],
+          published_on: volume[:publishedDate],
+          media_format: volume[:printType].titleize,
+          description:  volume[:description],
+          image_url:    image_urls[:thumbnail]
+        )
 
-          result[:identifiers] = volume[:industryIdentifiers].map do |identifier|
-            {
-              code_type: identifier[:type].downcase,
-              code: identifier[:identifier]
-            }
-          end
+        work.build_source(
+          provider:     'google_books',
+          provider_key: entry[:id],
+          provider_url: entry[:selfLink]
+        )
+
+        (volume[:industryIdentifiers] || []).each do |identifier|
+          work.identifiers.build(
+            code_type: identifier[:type].downcase,
+            code: identifier[:identifier]
+          )
         end
+
+        work
       end
     end
 

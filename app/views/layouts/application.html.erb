@@ -17,6 +17,30 @@
     <%= yield %>
 
     <%= javascript_include_tag 'application' %>
+    <script>
+      System.config({
+        baseURL: '/assets/',
+        map: {
+          'jquery': 'jquery2',
+          'handlebars': 'handlebars.runtime'
+        },
+        meta: {
+          'jquery2': {
+            format: 'global',
+            exports: 'jQuery'
+          },
+          'jquery_ujs': {
+            deps: ['jquery']
+          },
+          'extensions/handlebars_helpers': {
+            format: 'global',
+            deps: ['handlebars']
+          }
+        }
+      });
+
+      System.import('application');
+    </script>
     <%= yield :javascript %>
   </body>
 </html>

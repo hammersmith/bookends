@@ -5,8 +5,8 @@ module GoogleBooks
       contains: '',
       title: 'intitle:',
       author: 'inauthor:',
-      publisher: 'ininpublisher:',
-      identifier: 'isbn:',
+      publisher: 'inpublisher:',
+      identifiers: 'isbn:',
     }.freeze
 
     def initialize(query)
@@ -19,6 +19,7 @@ module GoogleBooks
       query_string = build_query.merge({ key: GoogleBooks.api_key })
 
       connection = Faraday.new
+      Rails.logger.info "Searching google: '#{query_string[:q]}'"
       response = connection.get GoogleBooks.url, query_string
       JSON.parse(response.body, symbolize_names: true)[:items]
     end

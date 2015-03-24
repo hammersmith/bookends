@@ -17,25 +17,24 @@ class BooksControllerTest < ControllerTestCase
   end
 
   test 'should search google' do
+    stub_request(
+      :get,
+      "#{GoogleBooks.url}?key=#{GoogleBooks.api_key}&q=Text+intitle:Harry Potter+inauthor:JK Rowling+isbn:1234567"
+    ).to_return(body: File.read('fixtures/google_books_response.json'))
+
     search_params = {
-      title: 'Go Down Moses',
-      author: 'William Faulkner',
+      title: 'Harry Potter',
+      author: 'JK Rowling',
       contains: 'Text',
       identifiers: '1234567',
     }
 
-    expected_results = {
-      works: [ { title: 'Go Down Moses' } ]
-    }
-
-    searcher = mock(search: expected_results)
-    GoogleBooks::SearchProxy.expects(:new).with(search_params).returns(searcher)
-
-    get :search_google, works_search: search_params.merge(bogus: 'stuff')
+    xhr :get, :search_google, works_search: search_params.merge(bogus: 'stuff')
 
     assert_response :success
+    assert_template :search_google
     search_results = JSON.parse(@response.body, symbolize_names: true)
-    assert_equal expected_results, search_results
+    assert_equal 'Harry Potter and the Prisoner of Azkaban', search_results[:works].first[:title]
   end
 
 end

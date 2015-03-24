@@ -7,7 +7,8 @@ class BooksController < ApplicationController
 
   def search_google
     searcher = GoogleBooks::SearchProxy.new(google_search_params)
-    render json: searcher.search
+    adapter = GoogleBooks::SearchAdapter.new(searcher.search)
+    @works = adapter.translate
   end
 
   private

@@ -14,3 +14,25 @@
   <%= f.input :available, as: :boolean %>
   <%= f.submit 'Search' %>
 <% end %>
+
+<div id="results"></div>
+
+<%= content_for :javascript do %>
+  <script>
+    System.importAll('components/works_searcher', 'components/search_renderer').then(function(m1, m2) {
+      'use strict';
+      var WorksSearcher = m1['WorksSearcher']
+        , WorksRenderer = m2
+        , searcher = new WorksSearcher({ form: '.js-work-search-form' });
+
+      searcher.$form.find('input[type=submit]').on('click', function(e) {
+        e.preventDefault();
+        var search = searcher.query();
+        search.done(function(results) {
+          console.log(results);
+          WorksRenderer.render('#results', results);
+        });
+      });
+    });
+  </script>
+<% end %>
